@@ -182,6 +182,6 @@ setupEventListeners();
 // Set default video source if needed
 if (!elements.video.src) {
   elements.video.src =
-    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+    "https://cdn.jsdelivr.net/gh/sunanda35/dotted-video-player@1.0.0/assets/demo-video.mp4";
   elements.video.load();
 }
