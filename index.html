@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dotted Video Player</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js"></script>
+    <script src="https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <!-- Hidden video for processing -->
+    <video
+      id="processingVideo"
+      style="display: none"
+      crossorigin="anonymous"
+    ></video>
+
+    <header
+      class="bg-gradient-to-r from-green-500 to-green-600 w-full text-white text-center py-6 shadow-lg"
+    >
+      <h1 class="text-3xl font-bold">Dotted Video Player</h1>
+      <p class="text-sm mt-2 opacity-90">
+        Transform your videos into beautiful dot art
+      </p>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+      <div class="bg-white rounded-xl shadow-xl p-6">
+        <!-- File Input Section -->
+        <div class="mb-8">
+          <div class="flex items-center justify-center w-full">
+            <label
+              for="video-upload"
+              class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
+            >
+              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <span class="material-icons text-4xl text-gray-500 mb-2"
+                  >upload_file</span
+                >
+                <p class="mb-2 text-sm text-gray-500">
+                  <span class="font-semibold">Click to upload</span> or drag and
+                  drop
+                </p>
+                <p class="text-xs text-gray-500">
+                  MP4, WebM, or OGG (MAX. 500MB)
+                </p>
+              </div>
+              <input
+                id="video-upload"
+                type="file"
+                class="hidden"
+                accept="video/*"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+          <!-- Left side: Original Video -->
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">
+              Original Video
+            </h2>
+            <div class="relative">
+              <video
+                id="myVideo"
+                controls
+                class="rounded-lg w-full shadow-md"
+                preload="metadata"
+                crossorigin="anonymous"
+              >
+                <source
+                  src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
+          <!-- Right side: Dotted Video -->
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">
+              Dotted Version
+            </h2>
+            <div class="relative">
+              <canvas
+                id="video-canvas"
+                class="rounded-lg w-full shadow-md"
+              ></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="mt-8 bg-gray-50 rounded-lg p-6">
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-4"
+          >
+            <div class="flex-1 w-full">
+              <label
+                for="dot-slider"
+                class="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Dot Size & Density
+              </label>
+              <div class="flex items-center gap-4">
+                <input
+                  type="range"
+                  min="1"
+                  max="20"
+                  value="12"
+                  class="dot-slider flex-1"
+                  id="dot-slider"
+                />
+                <span class="slider-value min-w-[80px]" id="slider-value"
+                  >12</span
+                >
+              </div>
+            </div>
+            <button
+              id="downloadBtn"
+              class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg flex items-center gap-2 transition-colors"
+            >
+              <span class="material-icons">download</span>
+              Download Dotted Video
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="js/player.js"></script>
+  </body>
+</html>
